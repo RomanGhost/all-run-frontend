@@ -5,6 +5,7 @@ import { UserRegistrationInfo } from '../../model/user.model';
 import { SchedulerView } from '../../model/scheduler.view-model';
 import { SchedulerService } from '../../service/scheduler.service';
 import { UserService } from '../../service/user.service';
+import { TelegramApi } from '../../config/config';
 
 @Component({
   selector: 'app-register',
@@ -71,7 +72,7 @@ export class RegisterComponent implements OnInit {
       this.userService.registerUser(user).subscribe({
       next: (response) => {
         const schedulerID = this.scheduler?.value
-        window.location.href = `https://t.me/all_run_bot?start=event=${schedulerID}_id=${response.id}`;
+        window.location.href = `${TelegramApi.url}/${TelegramApi.nameBot}?start=event=${schedulerID}_id=${response.id}`;
 
       },
       error: (err) => console.error('Registration error:', err),

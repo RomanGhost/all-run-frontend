@@ -8,3 +8,8 @@ export const ApiConfig = {
     user: "/user"  
   }
 };
+
+export const TelegramApi = {
+  nameBot: "all_run_bot", 
+  url: "https://t.me",
+}
