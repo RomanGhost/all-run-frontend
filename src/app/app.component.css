@@ -128,6 +128,13 @@ body {
   text-align: center;
 }
 
+.footer .container {
+  display: flex;
+  flex-direction: column; /* Делает вертикальную компоновку */
+  align-items: center;    /* Выравнивает по центру */
+  text-align: center;     /* Текст по центру, если нужно */
+}
+
 .social-links a {
   margin: 0 10px;
   color: white;
