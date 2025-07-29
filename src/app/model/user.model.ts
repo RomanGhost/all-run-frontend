@@ -1,6 +1,4 @@
 export interface UserRegistrationInfo {
-    firstName: string;
-    lastName: string;
-    telegramLogin: string;
-    phone?: string;
+    first_name: string;
+    last_name: string;
   }

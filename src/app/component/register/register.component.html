@@ -49,49 +49,17 @@
             </span>
           </div>
         </div>
-        
+
         <div class="form-group">
-          <label for="telegramLogin">Telegram логин</label>
-          <input 
-            type="text" 
-            id="telegramLogin" 
-            formControlName="telegramLogin" 
-            class="form-input"
-            [class.invalid]="isFieldInvalid('telegramLogin')"
-            placeholder="Введите ваш Telegram логин"
-          >
-          <div *ngIf="isFieldInvalid('telegramLogin')" class="error-message">
-            <span *ngIf="telegramLogin?.errors?.['required']">
-              Пожалуйста, введите Telegram логин
-            </span>
-            <span *ngIf="telegramLogin?.errors?.['minlength'] || telegramLogin?.errors?.['maxlength']">
-              Логин должен содержать от 5 до 32 символов
-            </span>
-            <span *ngIf="telegramLogin?.errors?.['pattern']">
-              Логин должен начинаться с буквы и содержать только буквы и цифры
-            </span>
-          </div>
+          <label for="scheduler">Выберите тренировку</label>
+          <select id="scheduler" formControlName="scheduler" class="form-input">
+            <option value="">Связаться с тренером</option>
+            <option *ngFor="let slot of schedulerOptions" [value]="slot.id">
+              {{ slot.formatted }} (мест: {{ slot.availableSlots }})
+            </option>
+          </select>
         </div>
-        
-        <div class="form-group">
-          <label for="phone">Номер телефона</label>
-          <input 
-            type="tel" 
-            id="phone" 
-            formControlName="phone" 
-            class="form-input"
-            [class.invalid]="isFieldInvalid('phone')"
-            placeholder="+7 (999) 123-45-67"
-          >
-          <div *ngIf="isFieldInvalid('phone')" class="error-message">
-            <span *ngIf="phone?.errors?.['required']">
-              Пожалуйста, введите номер телефона
-            </span>
-            <span *ngIf="phone?.errors?.['pattern']">
-              Введите корректный номер телефона
-            </span>
-          </div>
-        </div>
+
         
         <button 
           type="submit" 

@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserRegistrationInfo } from '../../model/user.model';
-import { RegisterService } from '../../service/register.service';
+import { SchedulerView } from '../../model/scheduler.view-model';
+import { SchedulerService } from '../../service/scheduler.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-register',
@@ -14,71 +16,69 @@ import { RegisterService } from '../../service/register.service';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
+  schedulerOptions: SchedulerView[] = [];
 
   constructor(
-    private fb: FormBuilder, 
-    private registerService: RegisterService
+    private fb: FormBuilder,
+    private schedulerService: SchedulerService,
+    private userService: UserService  
   ) {}
 
   ngOnInit(): void {
     this.initForm();
+    this.loadSchedulers();
   }
 
   private initForm(): void {
     this.registerForm = this.fb.group({
       firstName: ['', [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(2),
         Validators.pattern('^[А-Яа-яЁёA-Za-z]+$')
       ]],
       lastName: ['', [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(2),
         Validators.pattern('^[А-Яа-яЁёA-Za-z]+$')
       ]],
-      telegramLogin: ['', [
-        Validators.required, 
-        Validators.minLength(5), 
-        Validators.maxLength(32), 
-        Validators.pattern('^[a-zA-Z][\\w\\d]{4,31}$')
-      ]],
-      phone: ['', [
-        Validators.pattern('^((8|\\+7)[\\- ]?)?\\(?\\d{3}\\)?[\\- ]?[\\d\\- ]{7,10}$')
-      ]]
+      scheduler: [''] // ➕ добавлено
     });
   }
 
-  // Getters for easy form control access
+  private loadSchedulers(): void {
+    this.schedulerService.getSchedulers().subscribe(slots => {
+      this.schedulerOptions = slots.filter(slot => !slot.isFull);
+    });
+
+    console.log(this.schedulerOptions);
+  }
+
   get firstName() { return this.registerForm.get('firstName'); }
   get lastName() { return this.registerForm.get('lastName'); }
-  get telegramLogin() { return this.registerForm.get('telegramLogin'); }
-  get phone() { return this.registerForm.get('phone'); }
+  get scheduler(){ return this.registerForm.get('scheduler'); }
 
   onSubmit(): void {
     this.submitted = true;
 
     if (this.registerForm.valid) {
-      const userData: UserRegistrationInfo = this.registerForm.value;
-      console.log(userData);
-      
-      this.registerService.registerUser(userData)
-        .subscribe({
-          next: (response) => {
-            console.log('Регистрация успешна', response);
-            // Reset form after successful submission
-            this.registerForm.reset();
-            this.submitted = false;
-            // TODO: Add success notification or navigation
-          },
-          error: (error) => {
-            console.error('Ошибка регистрации', error);
-            // TODO: Add error handling and user notification
-          }
-        });
+      const formValue = this.registerForm.value;
+
+      const user :UserRegistrationInfo = {
+        first_name: this.firstName?.value||"",
+        last_name: this.lastName?.value||"",
+      }
+
+      this.userService.registerUser(user).subscribe({
+      next: (response) => {
+        const schedulerID = this.scheduler?.value
+        window.location.href = `https://t.me/all_run_bot?start=event=${schedulerID}_id=${response.id}`;
+
+      },
+      error: (err) => console.error('Registration error:', err),
+    });
     }
   }
 
-  // Helper method to check if a field is invalid
   isFieldInvalid(fieldName: string): boolean {
     const field = this.registerForm.get(fieldName);
     return !!field && field.invalid && (field.dirty || field.touched || this.submitted);
