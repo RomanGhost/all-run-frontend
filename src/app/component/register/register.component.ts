@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserRegistrationInfo } from '../../model/user.model';
-import { SchedulerView } from '../../model/scheduler.view-model';
-import { SchedulerService } from '../../service/scheduler.service';
 import { UserService } from '../../service/user.service';
 import { TelegramApi } from '../../config/config';
+import { WorkoutView } from '../../model/workout.view-model';
+import { WorkoutService } from '../../service/workout.service';
 
 @Component({
   selector: 'app-register',
@@ -17,17 +17,17 @@ import { TelegramApi } from '../../config/config';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
-  schedulerOptions: SchedulerView[] = [];
+  workoutOptions: WorkoutView[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private schedulerService: SchedulerService,
+    private workoutService: WorkoutService,
     private userService: UserService  
   ) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.loadSchedulers();
+    this.loadWorkouts();
   }
 
   private initForm(): void {
@@ -42,21 +42,21 @@ export class RegisterComponent implements OnInit {
         Validators.minLength(2),
         Validators.pattern('^[А-Яа-яЁёA-Za-z]+$')
       ]],
-      scheduler: [''] // ➕ добавлено
+      workout: [''] 
     });
   }
 
-  private loadSchedulers(): void {
-    this.schedulerService.getSchedulers().subscribe(slots => {
-      this.schedulerOptions = slots.filter(slot => !slot.isFull);
+  private loadWorkouts(): void {
+    this.workoutService.getWorkouts().subscribe(slots => {
+      this.workoutOptions = slots.filter(slot => !slot.isFull);
     });
 
-    console.log(this.schedulerOptions);
+    console.log(this.workoutOptions);
   }
 
   get firstName() { return this.registerForm.get('firstName'); }
   get lastName() { return this.registerForm.get('lastName'); }
-  get scheduler(){ return this.registerForm.get('scheduler'); }
+  get workout(){ return this.registerForm.get('workout'); }
 
   onSubmit(): void {
     this.submitted = true;
@@ -65,14 +65,21 @@ export class RegisterComponent implements OnInit {
       const formValue = this.registerForm.value;
 
       const user :UserRegistrationInfo = {
-        first_name: this.firstName?.value||"",
-        last_name: this.lastName?.value||"",
+        first_name: this.firstName?.value|| "",
+        last_name: this.lastName?.value|| "",
       }
 
       this.userService.registerUser(user).subscribe({
       next: (response) => {
-        const schedulerID = this.scheduler?.value
-        window.location.href = `${TelegramApi.url}/${TelegramApi.nameBot}?start=event=${schedulerID}_id=${response.id}`;
+        const workoutID = this.workout?.value||undefined
+        console.log(workoutID)
+        var type = ""
+        if (workoutID == undefined) {
+          type = "instr";
+        } else{
+          type = "event";
+        }
+        window.location.href = `${TelegramApi.url}/${TelegramApi.nameBot}?start=${type}=${workoutID}_id=${response.id}`;
 
       },
       error: (err) => console.error('Registration error:', err),

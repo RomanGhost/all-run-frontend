@@ -2,28 +2,27 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ApiConfig } from '../config/config';
-import { Scheduler, SchedulerList } from '../model/scheduler.model';
-import { SchedulerView } from '../model/scheduler.view-model';
-
+import { WorkoutView } from '../model/workout.view-model';
+import { Workout, WorkoutList } from '../model/workout.model';
 @Injectable({
   providedIn: 'root'
 })
-export class SchedulerService {
-  private schedulerURL = ApiConfig.apiUrl + ApiConfig.version + ApiConfig.endpoints.schedulers;
+export class WorkoutService {
+  private workoutURL = ApiConfig.apiUrl + ApiConfig.version + ApiConfig.endpoints.workouts;
 
   constructor(private http: HttpClient) {}
 
-  getSchedulers(duration:number=6000): Observable<SchedulerView[]> {
-    return this.http.get<SchedulerList>(`${this.schedulerURL}?duration=${duration}`).pipe(
-      map((response: SchedulerList) => {
-        return response.schedulers.map((scheduler: Scheduler): SchedulerView => {
-          const date = new Date(scheduler.unix_time_start * 1000);
+  getWorkouts(duration:number=6000): Observable<WorkoutView[]> {
+    return this.http.get<WorkoutList>(`${this.workoutURL}?duration=${duration}`).pipe(
+      map((response: WorkoutList) => {
+        return response.workouts.map((workout: Workout): WorkoutView => {
+          const date = new Date(workout.unix_time_start * 1000);
           const formatted = this.formatDate(date);
-          const availableSlots = scheduler.max_students - scheduler.accupied_slots;
+          const availableSlots = workout.max_students - workout.accupied_slots;
           const isFull = availableSlots <= 0;
 
           return {
-            id: scheduler.id,
+            id: workout.id,
             date,
             formatted,
             availableSlots,

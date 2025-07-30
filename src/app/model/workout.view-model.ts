@@ -1,4 +1,4 @@
-export interface SchedulerView {
+export interface WorkoutView {
   id: number;
   date: Date;
   formatted: string; // "29.07.2025 19:00"
