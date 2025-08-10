@@ -1,0 +1,40 @@
+<div class="home-container">
+  <!-- Hero секция -->
+    <div class="content-wrapper">
+      <h1>
+        <span class="accent">{{ workout?.title }}</span>
+      </h1>
+      <p class="subtitle">
+        {{ workout?.description }}
+      </p>
+      <div class="hero-actions">
+        <button class="cta-button" (click)="goToRegister()">Записаться</button>
+      </div>
+    </div>
+
+  <!-- Блок характеристик тренировки -->
+  <section class="features-section">
+    <div class="features-wrapper">
+      <div class="feature-workout">
+        <div class="icon">💰</div>
+        <h3>Стоимость</h3>
+        <p>{{ workout?.price }} ₽</p>
+      </div>
+      <div class="feature-workout">
+        <div class="icon">📅</div>
+        <h3>Действует</h3>
+        <p>{{ workout?.validDays }} дней</p>
+      </div>
+      <div class="feature-workout">
+        <div class="icon">👨‍🏫</div>
+        <h3>Тренер</h3>
+        <p>{{ workout?.instructor?.first_name }} {{ workout?.instructor?.last_name }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Кнопка "Назад" -->
+  <div class="more-button">
+    <button (click)="goBack()">Назад к списку</button>
+  </div>
+</div>

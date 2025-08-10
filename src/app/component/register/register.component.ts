@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserRegistrationInfo } from '../../model/user.model';
+import { UserInfo } from '../../model/user.model';
 import { UserService } from '../../service/user.service';
 import { TelegramApi } from '../../config/config';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService  
+    private userService: UserService,
+    private route: ActivatedRoute 
   ) {}
 
   ngOnInit(): void {
@@ -36,14 +38,12 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.minLength(2),
         Validators.pattern('^[А-Яа-яЁёA-Za-z]+$')
-      ]],
-      workout: [''] 
+      ]]
     });
   }
 
   get firstName() { return this.registerForm.get('firstName'); }
   get lastName() { return this.registerForm.get('lastName'); }
-  get workout(){ return this.registerForm.get('workout'); }
 
   onSubmit(): void {
     this.submitted = true;
@@ -51,20 +51,20 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       const formValue = this.registerForm.value;
 
-      const user :UserRegistrationInfo = {
+      const user :UserInfo = {
         first_name: this.firstName?.value|| "",
         last_name: this.lastName?.value|| "",
       }
 
       this.userService.registerUser(user).subscribe({
       next: (response) => {
-        const workoutID = this.workout?.value||undefined
+        const workoutID = Number(this.route.snapshot.queryParamMap.get('workoutId'));
         console.log(workoutID)
         var type = ""
-        if (workoutID == undefined) {
-          type = "instr";
+        if (workoutID == 0) {
+          type = "connect";
         } else{
-          type = "event";
+          type = "workout";
         }
         window.location.href = `${TelegramApi.url}/${TelegramApi.nameBot}?start=${type}=${workoutID}_id=${response.id}`;
 

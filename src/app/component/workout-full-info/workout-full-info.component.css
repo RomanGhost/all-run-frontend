@@ -1,0 +1,111 @@
+.home-container {
+  font-family: Arial, sans-serif;
+}
+
+.hero-section {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 5rem 1rem;
+  color: #fff;
+  text-align: center;
+}
+
+.content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.accent {
+  color: #e63946;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  margin-top: 1rem;
+}
+
+.cta-button {
+  background-color: #c9184a;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #a4133c;
+}
+
+.features-section {
+  background-color: #f5f5dc;
+  padding: 4rem 1rem;
+}
+
+.features-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.feature-workout {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.feature-workout .icon {
+  font-size: 3rem;
+  color: #e63946;
+  margin-bottom: 1rem;
+}
+
+.feature-workout h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-workout p {
+  font-size: 1rem;
+  color: #1d1d1d;
+}
+
+.more-button {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.more-button button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.4);
+}
+
+.more-button button:hover {
+  background-color: #219150;
+  box-shadow: 0 6px 12px rgba(33, 145, 80, 0.5);
+}

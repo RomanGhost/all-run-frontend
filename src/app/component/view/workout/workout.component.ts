@@ -14,6 +14,6 @@ constructor(private router: Router) {}
 
 goToPurchase(workoutId: number) {
     // Переход на страницу покупки с передачей id карточки
-    this.router.navigate(['/register', workoutId]);
+    this.router.navigate(['/workout', workoutId]);
   }
 }

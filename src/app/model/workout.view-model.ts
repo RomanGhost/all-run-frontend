@@ -1,8 +1,10 @@
+import { UserInfo } from './user.model';
 import { TrainingType } from './workout.model';
 
 export interface WorkoutView {
   id: number;
   title: string;
+  instructor: UserInfo;
   description: string;
   validDays: number;
   isPopular: boolean;

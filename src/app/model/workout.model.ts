@@ -1,6 +1,9 @@
+import { UserInfo } from "./user.model";
+
 export interface Workout {
   id: number;
   title: string;
+  instructor: UserInfo;
   description: string;
   validDays: number;
   isPopular: boolean;
