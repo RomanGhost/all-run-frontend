@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UserRegistrationInfo } from '../../model/user.model';
 import { UserService } from '../../service/user.service';
 import { TelegramApi } from '../../config/config';
-import { WorkoutView } from '../../model/workout.view-model';
-import { WorkoutService } from '../../service/workout.service';
 
 @Component({
   selector: 'app-register',
@@ -17,17 +15,14 @@ import { WorkoutService } from '../../service/workout.service';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
-  workoutOptions: WorkoutView[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private workoutService: WorkoutService,
     private userService: UserService  
   ) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.loadWorkouts();
   }
 
   private initForm(): void {
@@ -44,14 +39,6 @@ export class RegisterComponent implements OnInit {
       ]],
       workout: [''] 
     });
-  }
-
-  private loadWorkouts(): void {
-    this.workoutService.getWorkouts().subscribe(slots => {
-      this.workoutOptions = slots.filter(slot => !slot.isFull);
-    });
-
-    console.log(this.workoutOptions);
   }
 
   get firstName() { return this.registerForm.get('firstName'); }

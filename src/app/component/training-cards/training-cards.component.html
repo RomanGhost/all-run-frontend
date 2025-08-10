@@ -1,11 +1,1 @@
-<div class="cards-container">
-  <div *ngFor="let card of cards" class="card">
-    <h3>{{ card.title }}</h3>
-    <p>{{ card.description }}</p>
-    <p><strong>Тип:</strong> {{ card.trainingType.name }}</p>
-    <p><strong>Кол-во занятий:</strong> {{ card.sessionsCount }}</p>
-    <p><strong>Действительно:</strong> {{ card.validDays }} дней</p>
-    <p><strong>Цена:</strong> {{ card.price.amount }} {{ card.price.currency }}</p>
-    <button (click)="test()">Купить</button>
-  </div>
-</div>
+<app-workout-list [workoutsPerRow]="3"></app-workout-list>

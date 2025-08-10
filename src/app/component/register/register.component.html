@@ -49,17 +49,6 @@
             </span>
           </div>
         </div>
-
-        <div class="form-group">
-          <label for="workout">Выберите тренировку</label>
-          <select id="workout" formControlName="workout" class="form-input">
-            <option value="">Связаться с тренером</option>
-            <option *ngFor="let slot of workoutOptions" [value]="slot.id">
-              {{ slot.formatted }} (мест: {{ slot.availableSlots }})
-            </option>
-          </select>
-        </div>
-
         
         <button 
           type="submit" 

@@ -8,6 +8,8 @@ export const routes: Routes = [
     // { path: 'about-trainer', component: TrainerComponent, title: 'О тренере' },
     // { path: 'about-club', component: ClubComponent, title: 'О клубе' },
     { path: 'register', component: RegisterComponent, title: 'Регистрация' },
-     { path: 'cards', component: TrainingCardsComponent,  title: 'Выбор услуги'},
+    { path: 'register/:id', component: RegisterComponent, title: 'Регистрация' },
+    { path: 'workouts', component: TrainingCardsComponent,  title: 'Выбор услуги'},
+    { path: 'workout/info', component: TrainingCardsComponent,  title: 'Просмотр услуги'}
     // { path: '**', redirectTo: '' }
   ];;

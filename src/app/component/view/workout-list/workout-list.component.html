@@ -1,0 +1,3 @@
+<div class="workouts-grid" [ngStyle]="{'grid-template-columns': gridTemplateColumns}">
+  <app-workout *ngFor="let workout of workouts" [workout]="workout"></app-workout>
+</div>

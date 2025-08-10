@@ -4,8 +4,9 @@ export const ApiConfig = {
   version: 'v1',
   timeout: 30000,
   endpoints: {
-    workouts: "/workouts/available",
+    workoutsAvalaibles: "/workouts/available",
     user: "/user"  
+
   }
 };
 

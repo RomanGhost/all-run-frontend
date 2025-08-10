@@ -1,0 +1,6 @@
+<div class="workout" (click)="goToPurchase(workout.id)" style="cursor: pointer;">
+  <h3>{{ workout.title }}</h3>
+  <p>{{ workout.description }}</p>
+  <p>Срок действия: {{ workout.validDays }} дней</p>
+  <p>Цена: {{ workout.price / 100 }} руб</p>
+</div>

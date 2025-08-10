@@ -1,7 +1,15 @@
+import { TrainingType } from './workout.model';
+
 export interface WorkoutView {
   id: number;
-  date: Date;
-  formatted: string; // "29.07.2025 19:00"
-  availableSlots: number;
-  isFull: boolean;
+  title: string;
+  description: string;
+  validDays: number;
+  isPopular: boolean;
+  validFrom: Date;
+  validTo: Date;
+  validFromFormatted: string;
+  validToFormatted: string;
+  trainingType: TrainingType;
+  price: number;
 }
