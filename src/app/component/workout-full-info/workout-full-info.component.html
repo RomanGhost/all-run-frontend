@@ -1,16 +1,17 @@
 <div class="home-container">
   <!-- Hero секция -->
-    <div class="content-wrapper">
-      <h1>
-        <span class="accent">{{ workout?.title }}</span>
-      </h1>
-      <p class="subtitle">
-        {{ workout?.description }}
-      </p>
-      <div class="hero-actions">
-        <button class="cta-button" (click)="goToRegister()">Записаться</button>
-      </div>
+  <div class="content-wrapper">
+    <h1>
+      <span class="accent">{{ workout?.title }}</span>
+    </h1>
+    <p class="subtitle">
+      {{ workout?.description }}
+    </p>
+    <div class="button-group">
+      <button class="cta-button" (click)="goToRegister()">Записаться</button>
+      <button class="back-button" (click)="goBack()">Назад к списку</button>
     </div>
+  </div>
 
   <!-- Блок характеристик тренировки -->
   <section class="features-section">
@@ -33,8 +34,12 @@
     </div>
   </section>
 
-  <!-- Кнопка "Назад" -->
-  <div class="more-button">
-    <button (click)="goBack()">Назад к списку</button>
-  </div>
+  <!-- Нижний блок с кнопками -->
+  <section class="bottom-actions">
+    <h3>Готовы начать тренировки?</h3>
+    <div class="button-group">
+      <button class="cta-button" (click)="goToRegister()">Записаться</button>
+      <button class="back-button" (click)="goBack()">Назад к списку</button>
+    </div>
+  </section>
 </div>

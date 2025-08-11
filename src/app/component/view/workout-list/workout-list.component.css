@@ -1,4 +1,225 @@
+/* Основной контейнер */
+.workout-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Заголовок секции */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-header p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Сетка тренировок */
 .workouts-grid {
   display: grid;
-  gap: 16px;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+/* Анимация появления карточек */
+.workouts-grid ::ng-deep app-workout {
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.workouts-grid ::ng-deep app-workout:nth-child(1) { animation-delay: 0.1s; }
+.workouts-grid ::ng-deep app-workout:nth-child(2) { animation-delay: 0.2s; }
+.workouts-grid ::ng-deep app-workout:nth-child(3) { animation-delay: 0.3s; }
+.workouts-grid ::ng-deep app-workout:nth-child(4) { animation-delay: 0.4s; }
+.workouts-grid ::ng-deep app-workout:nth-child(5) { animation-delay: 0.5s; }
+.workouts-grid ::ng-deep app-workout:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Состояние загрузки */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(102, 126, 234, 0.2);
+  border-left: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-state p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Пустое состояние */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 20px;
+  margin: 2rem 0;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.empty-state p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Кнопка "Загрузить еще" */
+.load-more-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.load-more-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(45deg, #74b9ff, #0984e3);
+  color: #fff;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(9, 132, 227, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.load-more-button:hover {
+  background: linear-gradient(45deg, #0984e3, #2d3436);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(9, 132, 227, 0.4);
+}
+
+.load-more-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(9, 132, 227, 0.3);
+}
+
+.button-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.load-more-button:hover .button-icon {
+  transform: translateY(2px);
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+  .workout-list-container {
+    padding: 1.5rem;
+  }
+  
+  .workouts-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .workout-list-container {
+    padding: 1rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .workouts-grid {
+    gap: 1rem;
+    /* На мобильных всегда одна колонка */
+    grid-template-columns: 1fr !important;
+  }
+  
+  .loading-state,
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+  
+  .load-more-button {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .section-header p {
+    font-size: 1rem;
+  }
+  
+  .empty-icon {
+    font-size: 3rem;
+  }
+  
+  .empty-state h3 {
+    font-size: 1.3rem;
+  }
 }
