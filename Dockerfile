@@ -7,12 +7,12 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build --prod
+RUN npm run build -- --configuration production
 
 # Потом берем nginx и копируем туда готовую статику
 FROM nginx:stable-alpine as production-stage
 
-COPY --from=build-stage /app/dist/my-angular-app/browser /usr/share/nginx/html
+COPY --from=build-stage /app/dist/all-run/browser /usr/share/nginx/html
 
 EXPOSE 80
 
