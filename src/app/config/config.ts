@@ -1,6 +1,6 @@
 export const ApiConfig = {
   production: false,
-  apiUrl: 'http://localhost:8080/api/',
+  apiUrl: 'http://backend/api/',
   version: 'v1',
   timeout: 30000,
   endpoints: {
